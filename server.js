@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 const colors = require('colors');
 const errorHandlerror = require('./middleware/error');
 const connectDB = require('./config/db');
@@ -14,6 +15,11 @@ connectDB();
 const bootcamps = require('./routes/bootcamps');
 
 const app = express();
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Body parser
 app.use(express.json());
